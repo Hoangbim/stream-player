@@ -4,7 +4,9 @@ import "./App.css";
 
 // Các biến cấu hình cho AVPlayer
 const defaultConfig = {
-  wsUrl: "wss://video.bandia.vn/live", // URL luồng WSS mặc định
+  // wsUrl: "wss://video.bandia.vn/live",
+  // wsUrl: "wss://webhook.bandia.vn/stream/live?url=wss://video.bandia.vn",
+  wsUrl: "wss://worker.bandia.vn/stream/live?url=wss://video.bandia.vn",
   enableSimd: false,
   useMse: true,
   enableHardwareAcceleration: true,
@@ -16,7 +18,10 @@ const defaultConfig = {
 function App() {
   const playerContainerRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<AVPlayer | null>(null);
-  const videoUrl = "wss://video.bandia.vn/live"; // URL luồng WSS của bạn
+  const videoUrl = "wss://video.bandia.vn/live";
+  const workerFanoutUrl =
+    "wss://worker.bandia.vn/stream/live?url=wss://video.bandia.vn";
+  // "wss://webhook.bandia.vn/stream/live?url=wss://video.bandia.vn";
 
   // State để lưu trữ cấu hình player
   const [config, setConfig] = useState(defaultConfig);
@@ -47,7 +52,6 @@ function App() {
 
   const initializeAndPlay = async () => {
     if (playerContainerRef.current && !playerRef.current) {
-      console.log("Đang khởi tạo AVPlayer...");
       try {
         const player = new AVPlayer({
           container: playerContainerRef.current,
@@ -233,7 +237,7 @@ function App() {
           console.log("AVPlayer: Đã tải dữ liệu.");
         });
 
-        console.log(`Đang thử tải video từ: ${videoUrl}`);
+        console.log(`Đang thử tải video từ: ${config.wsUrl}`);
         await player.load(config.wsUrl);
         console.log("AVPlayer: Video đã tải, đang thử phát.");
         await player.play();
@@ -267,14 +271,24 @@ function App() {
             <div className="config-item">
               <label>
                 <input
-                  // defaultValue={config.wsUrl || 'wss://video.bandia.vn/live'}
-                  type="text"
-                  value={config.wsUrl}
-                  onChange={(e) => handleConfigChange("wsUrl", e.target.value)}
+                  type="checkbox"
+                  checked={config.wsUrl === workerFanoutUrl}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      handleConfigChange("wsUrl", workerFanoutUrl);
+                      console.log(
+                        "Đang sử dụng worker fanout URL: " + workerFanoutUrl
+                      );
+                    } else {
+                      handleConfigChange("wsUrl", videoUrl);
+                      console.log("Đang sử dụng video URL: " + videoUrl);
+                    }
+                  }}
                 />
-                Ws URL
+                Sub From Worker
               </label>
             </div>
+
             <div className="config-item">
               <label>
                 <input
@@ -368,9 +382,8 @@ function App() {
 
         <div className="info">
           <p>
-            Đang cố gắng phát luồng từ: <code>{videoUrl}</code>
+            Đang cố gắng phát luồng từ: <code>{config.wsUrl}</code>
           </p>
-          <p>Kiểm tra console của trình duyệt để xem log và lỗi từ AVPlayer.</p>
         </div>
       </div>
     </>
