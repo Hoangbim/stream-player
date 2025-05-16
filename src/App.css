@@ -1,0 +1,212 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f6f8;
+  color: #333;
+  display: flex;
+  flex-direction: column; /* Cho phép nội dung xếp chồng lên nhau */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.app-container {
+  background-color: #ffffff;
+  padding: 25px 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  width: 90%;
+  max-width: 800px;
+  margin: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 1.8em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.player-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Tỷ lệ khung hình video phổ biến */
+  min-height: 300px;    /* Chiều cao tối thiểu */
+  background-color: #000000; /* Màu nền giữ chỗ */
+  margin: 25px auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px; /* Bo góc cho đẹp */
+  position: relative;   /* Quan trọng nếu các phần tử UI của AVPlayer được định vị tuyệt đối */
+  overflow: hidden;     /* Để chứa phần tử video nếu nó cố gắng tràn ra ngoài */
+  width: 100%;
+  background-color: #000;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* AVPlayer thường chèn một thẻ <video> hoặc <canvas>. */
+/* CSS này đảm bảo phần tử được chèn sẽ lấp đầy wrapper. */
+.player-wrapper > video,
+.player-wrapper > canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Hoặc 'cover', tùy thuộc vào hành vi mong muốn */
+}
+
+.controls {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.controls button {
+    padding: 8px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.controls button:hover {
+    background-color: #e0e0e0;
+}
+
+
+.info {
+  margin-top: 25px;
+  font-size: 0.95em;
+  color: #555e68;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  border-left: 4px solid #17a2b8;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 0 4px 4px 0;
+}
+
+.info code {
+  background-color: #e8edf1;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  color: #2c3e50;
+  background-color: #e9ecef;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.config-panel {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.config-panel h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.config-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.config-item {
+  margin-bottom: 10px;
+}
+
+.config-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.config-item input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.play-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  max-width: 200px;
+  display: block;
+  margin: 0 auto;
+}
+
+.play-button:hover {
+  background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+  .config-options {
+    grid-template-columns: 1fr;
+  }
+}
